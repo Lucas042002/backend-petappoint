@@ -2,7 +2,7 @@ const { Router } = require('express');
 const router = Router();
 require('dotenv').config()
 const moment = require('moment'); 
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const bodyParser = require('body-parser');
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken');
