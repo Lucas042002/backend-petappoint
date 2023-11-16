@@ -63,6 +63,7 @@ router.post("/registro",verifyToken, jsonParser, async (req, res) => {
 router.post("/iniciosesion", jsonParser, (req, res) => {
     let email = req.body.email;
     let sql1=`select * from usuario where email='${email}'`
+    console.log("hola")
     connection.query(sql1, function (error, results, fields) {
         if (error)
             throw error;
@@ -72,7 +73,7 @@ router.post("/iniciosesion", jsonParser, (req, res) => {
             
             let hashSaved=results[0].password;
             let password = req.body.password;
-        
+            console.log("holaV2")
             let compare = bcryptjs.compareSync(password, hashSaved);
             if (compare) {
                 let sql2=`select * from usuario where email='${email}' and password='${hashSaved}'`
@@ -80,7 +81,7 @@ router.post("/iniciosesion", jsonParser, (req, res) => {
                     if (error)
                         throw error;
                     if (results != "") {
-                        
+                        console.log("holaV3")
                         const token = jwt.sign({ id: results[0].admin }, 'secretkey');
                         return res.status(200).json({"token": token});
                     }
