@@ -175,6 +175,16 @@ router.delete('/eliminarconsulta',verifyToken,jsonParser ,(req, res) =>{
         }
     })
 });
+
+router.get("/getall" ,jsonParser,(req, res) =>{
+    let sql = 'select * from consulta';
+    connection.query(sql, (error, results, fields) =>{
+        if(error) throw error;
+        else{
+            res.json(results);
+        }
+    })
+})
 module.exports = router;
 
 function verifyToken(req,res, next){
