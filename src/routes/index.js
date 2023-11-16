@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-
+require('dotenv').config()
 const moment = require('moment'); 
 const mysql = require("mysql");
 const bodyParser = require('body-parser');
@@ -8,14 +8,14 @@ const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 var jsonParser = bodyParser.json();
 
-import { DB_HOST,DB_USER,DB_PASS,DB_PORT,MYSQL_DB } from '../config';
 
 const connection = mysql.createConnection({
-    host:DB_HOST,
-    user:DB_USER,
-    password:DB_PASS,
-    port:DB_PORT,
-    database:MYSQL_DB
+    host:process.env.DB_HOST ,
+    user:'root' ,
+    password:'',
+    port:process.env.DB_PORT,
+    database:process.env.MYSQL_DB
+
 });
 
 connection.connect(function (err) {
@@ -61,7 +61,6 @@ router.post("/registro",verifyToken, jsonParser, async (req, res) => {
 });
 //Inicia sesion de un usuario devolviendo un token de inicio de sesion
 router.post("/iniciosesion", jsonParser, (req, res) => {
-    console.log("hola")
     let email = req.body.email;
     let sql1=`select * from usuario where email='${email}'`
     connection.query(sql1, function (error, results, fields) {

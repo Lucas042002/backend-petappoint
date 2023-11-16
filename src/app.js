@@ -1,15 +1,14 @@
-var express = require('express');
-var app = express();
-var cors = require('cors');
-import { APP_PORT } from '../config.js';
+require('dotenv').config()
+const express = require("express");
+const cors = require("cors");
 
-
+const app = express();
 var configuracion = {
     hostname: "127.0.0.1",
-    port: APP_PORT,
+    port: process.env.APP_PORT,
 };
 app.listen(configuracion,  ()=> {
-    console.log("Conectando al servidor http://localhost:".concat(configuracion.port));
+    console.log("Conectando al servidor http://localhost:",process.env.APP_PORT);
 });
 app.use(cors());
-app.use('/api', require('./routes/index'));
+app.use('/api', require('./routes/index.js'));
